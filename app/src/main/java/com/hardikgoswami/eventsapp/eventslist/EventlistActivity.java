@@ -1,9 +1,11 @@
-package com.hardikgoswami.eventsapp;
+package com.hardikgoswami.eventsapp.eventslist;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Eventlist_act extends AppCompatActivity {
+import com.hardikgoswami.eventsapp.R;
+
+public class EventlistActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
