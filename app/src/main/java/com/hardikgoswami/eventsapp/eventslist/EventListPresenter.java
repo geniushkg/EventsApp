@@ -2,7 +2,7 @@ package com.hardikgoswami.eventsapp.eventslist;
 
 import com.hardikgoswami.eventsapp.data.event.SortType;
 import com.hardikgoswami.eventsapp.data.event.Website;
-import com.hardikgoswami.eventsapp.data.source.local.EventListRepository;
+import com.hardikgoswami.eventsapp.data.source.EventListRepository;
 
 import java.util.List;
 
@@ -26,12 +26,13 @@ public class EventListPresenter implements EventListContract.Presenter {
 
         }else{
             // load from network
+            mEventsRepo.loadNetworkEvents(sortType);
         }
     }
 
     @Override
     public void showEvents(List<Website> websiteList) {
-
+        mView.showEvents(websiteList);
     }
 
     @Override
