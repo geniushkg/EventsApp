@@ -43,6 +43,10 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
         // Required empty public constructor
     }
 
+    public static EventListFragment newInstance(){
+        return new EventListFragment();
+    }
+
     AVLoadingIndicatorView loadingView;
 
     @Override
@@ -76,11 +80,13 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
     }
 
     @Override
-    public void showEvents(Eventlist eventList) {
+    public void showEvents(List<Website> websiteList) {
         websiteList.clear();
-        websiteList.addAll(eventList.getWebsites());
+        websiteList.addAll(websiteList);
         mAdapter.notifyDataSetChanged();
     }
+
+
 
     @Override
     public void setPresenter(EventListContract.Presenter presenter) {
