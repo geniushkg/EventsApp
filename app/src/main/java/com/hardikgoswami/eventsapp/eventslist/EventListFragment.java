@@ -20,7 +20,6 @@ import android.widget.Spinner;
 
 import com.hardikgoswami.eventsapp.R;
 import com.hardikgoswami.eventsapp.data.event.EventListAdapter;
-import com.hardikgoswami.eventsapp.data.event.Eventlist;
 import com.hardikgoswami.eventsapp.data.event.SortType;
 import com.hardikgoswami.eventsapp.data.event.Website;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -83,9 +82,9 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
     }
 
     @Override
-    public void showEvents(List<Website> websiteList) {
+    public void showEvents(List<Website> websiteListFresh) {
         websiteList.clear();
-        websiteList.addAll(websiteList);
+        websiteList.addAll(websiteListFresh);
         mAdapter.notifyDataSetChanged();
     }
 

@@ -1,5 +1,7 @@
 package com.hardikgoswami.eventsapp.eventslist;
 
+import android.util.Log;
+
 import com.hardikgoswami.eventsapp.data.event.SortType;
 import com.hardikgoswami.eventsapp.data.event.Website;
 import com.hardikgoswami.eventsapp.data.source.EventListRepository;
@@ -32,6 +34,7 @@ public class EventListPresenter implements EventListContract.Presenter {
 
     @Override
     public void showEvents(List<Website> websiteList) {
+        Log.d("EVENTSAPP","website data in presenter size : "+websiteList.size());
         mView.showEvents(websiteList);
     }
 

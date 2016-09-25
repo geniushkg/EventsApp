@@ -41,7 +41,7 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         Website website = mEvents.get(position);
         holder.Name.setText(website.getName());
-        holder.Experience.setText(website.getExperience());
+        holder.Experience.setText(website.getExperience()+ " yrs.Exp req." );
         holder.Category.setText(website.getCategory());
         holder.Description.setText(website.getDescription());
 //        Picasso.with(mContext)
