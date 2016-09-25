@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.hardikgoswami.eventsapp.R;
 import com.hardikgoswami.eventsapp.data.event.Eventlist;
+import com.wang.avi.AVLoadingIndicatorView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,19 +21,24 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
         // Required empty public constructor
     }
 
+    AVLoadingIndicatorView loadingView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =inflater.inflate(R.layout.eventlist_frag, container, false);
-
+        View rootView = inflater.inflate(R.layout.eventlist_frag, container, false);
+        loadingView = (AVLoadingIndicatorView) rootView.findViewById(R.id.eventsLoadingIndicatorView);
         return rootView;
     }
 
     @Override
     public void setLoadingIndication(boolean active) {
-
+        if (active) {
+            loadingView.setVisibility(View.VISIBLE);
+        } else {
+            loadingView.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
