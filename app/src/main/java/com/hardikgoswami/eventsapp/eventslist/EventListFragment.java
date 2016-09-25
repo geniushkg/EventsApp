@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hardikgoswami.eventsapp.R;
+import com.hardikgoswami.eventsapp.data.event.Eventlist;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends Fragment {
+public class EventListFragment extends Fragment implements EventListContract.View {
 
 
     public EventListFragment() {
@@ -24,7 +25,23 @@ public class EventListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.eventlist_frag, container, false);
+        View rootView =inflater.inflate(R.layout.eventlist_frag, container, false);
+
+        return rootView;
     }
 
+    @Override
+    public void setLoadingIndication(boolean active) {
+
+    }
+
+    @Override
+    public void showEvents(Eventlist eventList) {
+
+    }
+
+    @Override
+    public void setPresenter(EventListContract.Presenter presenter) {
+
+    }
 }
