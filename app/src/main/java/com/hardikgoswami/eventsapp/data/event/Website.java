@@ -7,7 +7,7 @@ public class Website {
 
     private String id;
     private String name;
-    //private String image;
+    private String image;
     private String category;
     private String description;
     private String experience;
@@ -54,18 +54,18 @@ public class Website {
      * @return
      *     The image
      */
-//    public String getImage() {
-//        return image;
-//    }
+    public String getImage() {
+        return image;
+    }
 
     /**
      * 
      * @param image
      *     The image
      */
-//    public void setImage(String image) {
-//        this.image = image;
-//    }
+    public void setImage(String image) {
+        this.image = image;
+    }
 
     /**
      * 

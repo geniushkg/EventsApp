@@ -44,12 +44,12 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         holder.Experience.setText(website.getExperience()+ " yrs.Exp req." );
         holder.Category.setText(website.getCategory());
         holder.Description.setText(website.getDescription());
-//        Picasso.with(mContext)
-//                .load(website.getImage())
-//                .placeholder( R.drawable.progress_animation )
-//                .into(holder.imageView);
+        Picasso.with(mContext)
+                .load(website.getImage())
+                .placeholder( R.drawable.progress_animation )
+                .into(holder.imageView);
 
-//        Log.d("EVENTSAPP","PICASO : "+website.getImage());
+        Log.d("EVENTSAPP","PICASO : "+website.getImage());
     }
 
 

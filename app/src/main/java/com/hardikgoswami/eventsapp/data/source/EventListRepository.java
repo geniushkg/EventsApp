@@ -2,6 +2,7 @@ package com.hardikgoswami.eventsapp.data.source;
 
 import android.util.Log;
 
+import com.hardikgoswami.eventsapp.data.converterutil.MyJsonConverter;
 import com.hardikgoswami.eventsapp.data.event.Eventlist;
 import com.hardikgoswami.eventsapp.data.event.SortType;
 import com.hardikgoswami.eventsapp.data.event.Website;
@@ -36,7 +37,7 @@ public class EventListRepository {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MyJsonConverter.create())
                 .build();
         service = retrofit.create(ApiEndPoints.class);
     }
@@ -55,12 +56,19 @@ public class EventListRepository {
                 if(response.isSuccessful()){
                     Eventlist eventlist = response.body();
                     List<Website> websites = eventlist.getWebsites();
+                    List<Website> filteredWebsite = new ArrayList<Website>();
                     if(websites == null){
                         Log.d("EVENTSAPP","is empty site : "+websites.isEmpty());
                     }else {
                         Log.d("EVENTSAPP","not null and is empty : "+websites.isEmpty()+" size :"+websites.size());
                     }
-                    presenter.showEvents(websites);
+                    for(Website temp:websites){
+                        if(temp.getCategory().equalsIgnoreCase(sortType.name())){
+                            filteredWebsite.add(temp);
+                        }
+                    }
+
+                    presenter.showEvents(filteredWebsite);
                     Log.d("EVENTSAPP","websites data "+eventlist.getWebsites().toString());
                     Log.d("EVENTSAPP","retrofit query sucesfull - size : "+eventlist.getQuote_available()+"of total : "+eventlist.getQuote_max());
                 }else {
