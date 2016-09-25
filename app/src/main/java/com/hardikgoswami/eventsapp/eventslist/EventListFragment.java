@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends Fragment implements EventListContract.View , AdapterView.OnItemSelectedListener {
+public class EventListFragment extends Fragment implements EventListContract.View, AdapterView.OnItemSelectedListener {
 
     SortType Filter = SortType.ALL;
     EventListContract.Presenter mPresenter;
@@ -43,11 +43,12 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
         // Required empty public constructor
     }
 
-    public static EventListFragment newInstance(){
+    public static EventListFragment newInstance() {
         return new EventListFragment();
     }
 
     AVLoadingIndicatorView loadingView;
+    Spinner spinner;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +61,8 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.eventlist_frag, container, false);
+
+
         loadingView = (AVLoadingIndicatorView) rootView.findViewById(R.id.eventsLoadingIndicatorView);
         recyclerViewEvents = (RecyclerView) rootView.findViewById(R.id.eventlistRecyclerView);
         mAdapter = new EventListAdapter(websiteList);
@@ -87,7 +90,6 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
     }
 
 
-
     @Override
     public void setPresenter(EventListContract.Presenter presenter) {
         mPresenter = presenter;
@@ -108,9 +110,10 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        Log.d("EVENTSAPP","MENU triggered");
         String SORT = parent.getItemAtPosition(position).toString();
         switch (SORT) {
-            case "ALl" :
+            case "ALl":
                 Filter = SortType.ALL;
                 break;
             case "BOT":
@@ -132,10 +135,12 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
                 Filter = SortType.ALL;
         }
         updateAdapterForEventsList();
+
     }
 
     private void updateAdapterForEventsList() {
         mPresenter.loadEvents(Filter);
+        Log.d("EVENTSAPP","update Adaper trigered");
     }
 
     @Override

@@ -15,7 +15,6 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
-
     <FrameLayout
         android:id="@+id/contentFrame"
         android:layout_width="match_parent"

@@ -11,6 +11,8 @@ import com.hardikgoswami.eventsapp.eventslist.EventListContract;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -26,8 +28,14 @@ public class EventListRepository {
     public static final String BASE_URL = "https://hackerearth.0x10.info/api/";
     public EventListRepository(EventListContract.Presenter presenter) {
         this.presenter = presenter;
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         service = retrofit.create(ApiEndPoints.class);
@@ -35,6 +43,7 @@ public class EventListRepository {
 
     public void loadFavouriteEvents(){
         // code to load faovourite offline events
+        Log.d("EVENTSAPP","Load favourite events");
     }
 
     public void loadNetworkEvents(final SortType sortType){
@@ -44,16 +53,16 @@ public class EventListRepository {
             @Override
             public void onResponse(Call<Eventlist> call, Response<Eventlist> response) {
                 if(response.isSuccessful()){
-                    List<Website> websites = response.body().getWebsites();
-                    List<Website> filteredWebsite = new ArrayList<Website>();
-                    filteredWebsite.clear();
-                    for (Website temp  : websites){
-                        if(temp.getCategory().equalsIgnoreCase(sortType.name())){
-                            filteredWebsite.add(temp);
-                        }
+                    Eventlist eventlist = response.body();
+                    List<Website> websites = eventlist.getWebsites();
+                    if(websites == null){
+                        Log.d("EVENTSAPP","is empty site : "+websites.isEmpty());
+                    }else {
+                        Log.d("EVENTSAPP","not null and is empty : "+websites.isEmpty()+" size :"+websites.size());
                     }
-                    presenter.showEvents(filteredWebsite);
-                    Log.d("EVENTSAPP","retrofit query sucesfull - size : "+filteredWebsite.size());
+                    presenter.showEvents(websites);
+                    Log.d("EVENTSAPP","websites data "+eventlist.getWebsites().toString());
+                    Log.d("EVENTSAPP","retrofit query sucesfull - size : "+eventlist.getQuote_available()+"of total : "+eventlist.getQuote_max());
                 }else {
                     Log.d("EVENTSAPP","retrofit query failure : "+response.message());
                 }
