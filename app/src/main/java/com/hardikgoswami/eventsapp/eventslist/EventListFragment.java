@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import com.hardikgoswami.eventsapp.R;
 import com.hardikgoswami.eventsapp.data.event.EventListAdapter;
 import com.hardikgoswami.eventsapp.data.event.Eventlist;
+import com.hardikgoswami.eventsapp.data.event.SortType;
 import com.hardikgoswami.eventsapp.data.event.Website;
 import com.wang.avi.AVLoadingIndicatorView;
 
@@ -30,8 +31,9 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends Fragment implements EventListContract.View {
+public class EventListFragment extends Fragment implements EventListContract.View , AdapterView.OnItemSelectedListener {
 
+    SortType Filter = SortType.ALL;
     EventListContract.Presenter mPresenter;
     List<Website> websiteList = new ArrayList<Website>();
     EventListAdapter mAdapter;
@@ -59,6 +61,7 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
         mAdapter = new EventListAdapter(websiteList);
         recyclerViewEvents.setAdapter(mAdapter);
         recyclerViewEvents.setLayoutManager(new LinearLayoutManager(getContext()));
+        updateAdapterForEventsList();
         // setup recycle view and adapter
         return rootView;
     }
@@ -98,9 +101,39 @@ public class EventListFragment extends Fragment implements EventListContract.Vie
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        String Sort = (String) item.getTitle();
-        Log.d("EVENTSAPP","menu item is : "+Sort);
-        return true;
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String SORT = parent.getItemAtPosition(position).toString();
+        switch (SORT) {
+            case "ALl" :
+                Filter = SortType.ALL;
+                break;
+            case "BOT":
+                Filter = SortType.BOT;
+                break;
+            case "COMPETITIVE":
+                Filter = SortType.COMPETITVE;
+                break;
+            case "HIRING":
+                Filter = SortType.HIRING;
+                break;
+            case "Hackathon":
+                Filter = SortType.HACKATHON;
+                break;
+            case "Favourite":
+                Filter = SortType.FAVOURITE;
+                break;
+            default:
+                Filter = SortType.ALL;
+        }
+        updateAdapterForEventsList();
+    }
+
+    private void updateAdapterForEventsList() {
+        mPresenter.loadEvents(Filter);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
