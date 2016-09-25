@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class EventListFragment extends Fragment implements EventListContract.View, AdapterView.OnItemSelectedListener {
 
-    SortType Filter = SortType.ALL;
+    SortType Filter = SortType.BOT;
     EventListContract.Presenter mPresenter;
     List<Website> websiteList = new ArrayList<Website>();
     EventListAdapter mAdapter;
