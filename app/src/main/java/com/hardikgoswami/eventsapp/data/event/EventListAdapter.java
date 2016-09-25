@@ -44,13 +44,18 @@ public class EventListAdapter extends RecyclerView.Adapter<EventListAdapter.View
         holder.Experience.setText(website.getExperience());
         holder.Category.setText(website.getCategory());
         holder.Description.setText(website.getDescription());
+        Picasso.with(mContext)
+                .load(website.getImage())
+                .placeholder( R.drawable.progress_animation )
+                .into(holder.imageView);
+
         Log.d("EVENTSAPP","PICASO : "+website.getImage());
     }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mEvents.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
